@@ -14,3 +14,8 @@ def pretty_print(brd):
                 counter += 1
             #print(str(cell), end=' ')
 pretty_print(brd)
+
+def movepiece(brd, (x, y), (x2, y2)):
+    brd[x][y], brd[x2][y2] = brd[x2][y2], brd[x][y]
+    pretty_print(brd)
+
