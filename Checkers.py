@@ -1,5 +1,5 @@
-R-for 'Red' piece
-B-for 'Black' Piece
+#R ='Red' piece
+#B ='Black' Piece
 from __future__ import print_function
 
 brd = [[0,'B',0,'B',0,'B',0,'B'], ['B',0,'B',0,'B',0,'B',0], [0,'B',0,'B',0,'B',0,'B'],[0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], ['R',0,'R',0,'R',0,'R',0], [0,'R',0,'R',0,'R',0,'R'], ['R',0,'R',0,'R',0,'R',0]] 
