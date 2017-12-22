@@ -17,7 +17,7 @@ def pretty_print(brd):
                 counter += 1
             #print(str(cell), end=' ')
 
-# it prints 'valid move' if the move is valid
+# prints 'valid move' if the move is valid
 def is_valid_move(brd,(x, y),(x2, y2)):
     if 0<=x>=7 and 0<=x2>=7 and 0<=y>=7 and 0<=y2>=7:
         if brd[x2][y2] == 0: # is the destination space free
