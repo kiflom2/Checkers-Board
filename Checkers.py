@@ -45,18 +45,15 @@ def capturing_move(brd, (x1, y1), (x3, y3), (x2, y2)):
             if brd[x3][y3] == brd[x1-1][y1-1] =='B':  # Situation 1
                 brd[x3][y3] = 0 # cancel B and change it by 0
                 brd[x1][y1], brd[x2][y2] = brd[x2][y2],brd[x1][y1] # exchange between R and empty space
-                pretty_print(brd)
         elif brd[x2][y2] == brd[x1-2][y1+2] == 0:
             if brd[x3][y3] == brd[x1-1][y1+1] == 'B': # Situation 2
                 brd[x3][y3] = 0 # cancel B and change it by 0
-                brd[x1][y1], brd[x2][y2] = brd[x2][y2],brd[x1][y1] # exchange between R and empty space
-                pretty_print(brd)           
+                brd[x1][y1], brd[x2][y2] = brd[x2][y2],brd[x1][y1] # exchange between R and empty space           
     elif brd[x1][y1] == 'B': # if it is B's turn
         if brd[x2][y2] == brd[x1+2][y1+2] == 0:  # if the destination space is free
             if brd[x3][y3] == brd[x1+1][y1+1] =='R':  # situation 1
                 brd[x3][y3]=0  # cancel R and change it by 0
-                brd[x1][y1], brd[x2][y2] = brd[x2][y2],brd[x1][y1] # exchange between B and empty space
-                pretty_print(brd)
+                brd[x1][y1], brd[x2][y2] = brd[x2][y2],brd[x1][y1] # exchange between B and empty space               
         elif brd[x2][y2] == brd[x1+2][y1-2] == 0:
             if brd[x3][y3] == brd[x1+1][y1-1] =='R': # situation 1
                 brd[x3][y3]=0  # cancel R and change it by 0
