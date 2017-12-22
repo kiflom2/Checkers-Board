@@ -1,3 +1,5 @@
+R-for 'Red' piece
+B-for 'Black' Piece
 from __future__ import print_function
 
 brd = [[0,'B',0,'B',0,'B',0,'B'], ['B',0,'B',0,'B',0,'B',0], [0,'B',0,'B',0,'B',0,'B'],[0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], ['R',0,'R',0,'R',0,'R',0], [0,'R',0,'R',0,'R',0,'R'], ['R',0,'R',0,'R',0,'R',0]] 
@@ -57,13 +59,13 @@ def capturing_move(brd, (x1, y1), (x3, y3), (x2, y2)):
                 brd[x1][y1], brd[x2][y2] = brd[x2][y2],brd[x1][y1] # exchange between B and empty space
                 pretty_print(brd)
         elif brd[x2][y2] == brd[x1+2][y1-2] == 0:
-            if brd[x3][y3] == brd[x1+1][y1-1] =='R':
+            if brd[x3][y3] == brd[x1+1][y1-1] =='R': # situation 1
                 brd[x3][y3]=0  # cancel R and change it by 0
                 brd[x1][y1], brd[x2][y2] = brd[x2][y2],brd[x1][y1] # exchange between B and empty space
 
-# prints possible available moves for (x, y)          
+# prints possible available moves for (x, y)         
 def list_possible_moves(brd, (x, y)):
-    # add how to limit the output out of the range (x-2)(y+2),(y-2),(x+2), (x-1), (y+1), (y-1), ,(x+1), 
+    # add how to avoid outputs which are out of the range (x-2)(y+2),(y-2),(x+2), (x-1), (y+1), (y-1), ,(x+1), 
     if brd[x][y]=='R':
         if brd[x-1][y+1] =='B' and brd[x-1][y-1] =='B':
             if brd[x-2][y+2]==0 and brd[x-2][y-2]==0:
