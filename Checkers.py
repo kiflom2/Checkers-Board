@@ -108,6 +108,6 @@ def list_possible_moves(brd, (x, y)):
         elif brd[x+1][y-1]!=0 and brd[x+1][y+1]==0:
             print (x+1, y+1)
         else:
-            print ('No available moves')    
-                
-                
+            print ('No available moves')                
+    else:
+        print ('No available moves')                
