@@ -1,6 +1,6 @@
 #R ='Red' piece
 #B ='Black' Piece
-from __future__ import print_function
+
 
 #Formatting change
 #TODO: don't mix numbers and characters
