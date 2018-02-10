@@ -153,6 +153,6 @@ def is_capture_move_b2_valid(b, x1, y1, x3, y3, x2, y2):
 def capturring_move(b, x1, y1, x3, y3, x2, y2):
     b[x3][y3] = 'E'
     b[x1][y1], b[x2][y2] = b[x2][y2], b[x1][y1]
-    pretty_print(b)  # why this became necessary??
+    pretty_print(b)  # why this became necessary?
 
 
