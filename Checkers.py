@@ -1,22 +1,8 @@
 #R ='Red' piece
 #B ='Black' Piece
-
-
-#Formatting change
-#TODO: don't mix numbers and characters
-brd = [
-    [0,'B',0,'B',0,'B',0,'B'],
-    ['B',0,'B',0,'B',0,'B',0],
-    [0,'B',0,'B',0,'B',0,'B'],
-    [0,0,0,0,0,0,0,0],
-    [0,0,0,0,0,0,0,0],
-    ['R',0,'R',0,'R',0,'R',0],
-    [0,'R',0,'R',0,'R',0,'R'],
-    ['R',0,'R',0,'R',0,'R',0]
-]
+#E ='Empty'place
 
 ###################FUNCTIONS###############
-# Will print the checkers board
 
 #Generate board
 b = [['E', 'B','E','B','E','B','E','B'],
