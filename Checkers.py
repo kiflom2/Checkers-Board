@@ -18,24 +18,43 @@ GlobalBoard = [['E', 'B','E','B','E','B','E','B'],
                 ['E','R','E','R','E','R','E','R'],
                 ['R','E','R','E','R','E','R','E']]
 
+#pretty_print(GlobalBoard)
+#print("\n\n")
+#pretty_print(GlobalBoard[::-1])
+
+GlobalBoard= GlobalBoard[::-1]
+
 #TODO: generate empty board
 
-
+def transpose(cord):
+    return [cord[1],cord[0]]
+def pretty_print(brd):
+    counter = 0
+    for row in brd:
+        for cell in row:
+            #print(counter,end=' ')
+            print(cell, end='  ')
+            if (counter == 7):
+                counter = 0
+                print("\n",end='')
+            else:
+                counter += 1
+            #print(str(cell), end=' ')
 #TODO: fix for normal coordinate system
-def pretty_print(b):
+def pretty_print3(b):
     counter = 0
     for row in b:
         for cell in row:
-            #print(counter,end=' ')
+            print(counter,end=' ')
             #print(cell, end='  ')
             print(cell, '  ')
             if (counter == 7):
                 counter = 0
-                #print('\n',end='' '')
-                print('\n','')
+                print('\n',end='' '')
+                #print('\n','')
             else:
                 counter += 1
-            #print(str(cell), end=' ')
+            print(str(cell), end=' ')
 
 def isValid(cord):
     return cord[0]>=0 and cord[0] <8 and cord[1] >=0 and cord[1]<8
@@ -51,7 +70,7 @@ def getType(b,cord):
     elif isBlack(b,cord):
         return PIECE_BLACK
     else:
-        print "What the hell how did you get here"
+        print("What the hell how did you get here")
 
 def isBlack(b,cord):
     return b[cord[0]][cord[1]] == PIECE_BLACK
@@ -65,7 +84,7 @@ def toLeft(cord,PieceType=PIECE_RED,times = 1):
     direction = -1
     if PieceType == PIECE_BLACK:
         direction *= -1*times
-    cord[0]= cord[0]-direction
+    cord[0] -= direction
     return cord
 #toRight(toLeft(x,y))
 
@@ -80,11 +99,11 @@ def toFront(cord,PieceType=PIECE_RED,times = 1):
     direction = 1
     if PieceType == PIECE_BLACK:
         direction *= -1*times
-    cord[1]+=direction
+    cord[1] -=direction
     return cord
 
 def toBack(cord,PieceType=PIECE_RED,times = 1):
-    direction = -1
+    direction = 1
     if PieceType == PIECE_BLACK:
         direction *= -1*times
     cord[1]+=direction
@@ -104,27 +123,26 @@ def jumpLeft(x,y,PieceType=PIECE_RED,Forward= True):
 
 #TODO: verify this works and fix
 #TODO: right a test for this function
-def possible_moves(b, x, y):
+def possible_moves(b, cord):
     moves = []
+    x,y = cord[0],cord[1]
     pieceType = getType(b,[x,y])
     if isEmpty(b,[x,y]):
         return []
     #try right
-    moves.append(toRight(b,toFront(b,[x,y],pieceType),pieceType))
-    moves.append(toLeft(b,toFront(b,[x,y],pieceType),pieceType))
-    moves.append(toRight(b,toBack(b,[x,y],pieceType),pieceType))
-    moves.append(toLeft(b,toBack(b,[x,y],pieceType),pieceType))
-    moves.append(toRight(b,toFront(b,[x,y],pieceType,2),pieceType,2))
-    moves.append(toLeft(b,toFront(b,[x,y],pieceType,2),pieceType,2))
-    moves.append(toRight(b,toBack(b,[x,y],pieceType,2),pieceType,2))
-    moves.append(toLeft(b,toBack(b,[x,y],pieceType,2),pieceType,2))
-
+    moves.append(toRight(toFront([x,y],pieceType),pieceType))
+    moves.append(toLeft(toFront([x,y],pieceType),pieceType))
+    moves.append(toRight(toBack([x,y],pieceType),pieceType))
+    moves.append(toLeft(toBack([x,y],pieceType),pieceType))
+    #TODO: below part isn't working using *times for multiple jump moves
+    moves.append(toRight(toFront([x,y],pieceType,2),pieceType,2))
+    moves.append(toLeft(toFront([x,y],pieceType,2),pieceType,2))
+    moves.append(toRight(toBack([x,y],pieceType,2),pieceType,2))
+    moves.append(toLeft(toBack([x,y],pieceType,2),pieceType,2))
     result = []
     for m in moves:
         if isValid(m) and isEmpty(b,m):
             result.append(m)
-
-
     return result
 
 #TODO: finish the jumps there should be four jumps
@@ -180,26 +198,6 @@ def is_valid_move(b, x, y, x2, y2):
     else:
         return 'invalid move'
 
-legalmoves =[]
-
-#Test legal moves
-import unittest
-class Testlegalmoves(unittest.TestCase):
-    def test_is_valid_move(self):
-        self.assertEqual(legalmoves.is_valid_move(
-            GlobalBoard, 2, 3, 3, 4), 'valid move')
-        self.assertEqual(legalmoves.is_valid_move(
-            GlobalBoard, 5, 2, 4, 1), 'valid move')
-        self.assertEqual(legalmoves.is_valid_move(
-            GlobalBoard, 6, 1, 5, 0), 'invalid move')
-        self.assertEqual(legalmoves.is_valid_move(
-            GlobalBoard, 5, 2, 4, 2), 'invalid move')
-        self.assertEqual(legalmoves.is_valid_move(
-            GlobalBoard, 6, 7, 5, 8), 'invalid move')
-
-
-#if __name__ == '__main__':
-    unittest.main()
 
 # Move a piece with error handling and throwing
 # it couldnt catche when i put 6 variables instead of 5 ???
