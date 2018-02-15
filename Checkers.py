@@ -21,6 +21,7 @@ GlobalBoard = [['E', 'B','E','B','E','B','E','B'],
 #TODO: generate empty board
 
 
+#TODO: fix for normal coordinate system
 def pretty_print(b):
     counter = 0
     for row in b:
@@ -101,6 +102,8 @@ def jumpLeft(x,y,PieceType=PIECE_RED,Forward= True):
     else:
         return toLeft(toBack(x,y,PieceType,2),PieceType,2)
 
+#TODO: verify this works and fix
+#TODO: right a test for this function
 def possible_moves(b, x, y):
     moves = []
     pieceType = getType(b,[x,y])
