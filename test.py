@@ -97,3 +97,13 @@ def update_city6(b):
 print x
 update_city6(x)
 print x
+
+
+
+
+
+def toLeft(x,y):
+    return [(x-1),(y-1)]
+
+
+print toLeft(1,3)

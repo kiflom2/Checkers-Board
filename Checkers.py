@@ -4,6 +4,10 @@
 
 ###################FUNCTIONS###############
 
+PIECE_RED   = "R"
+PIECE_BLACK = "B"
+PIECE_EMPTY = "E"
+
 #Generate board
 GlobalBoard = [['E', 'B','E','B','E','B','E','B'],
                 ['B','E','B','E','B','E','B','E'],
@@ -33,15 +37,46 @@ def pretty_print(b):
             #print(str(cell), end=' ')
 
 
+#def toLeft(x,y,PieceType="B",times=1):
+    #return [(x-(direction*times)),(y-(times *direction))]
+def toLeft(x,y,PieceType=PIECE_RED):
+    direction = -1
+    if PieceType == PIECE_BLACK:
+        direction = 1
+    return [(x-direction),y]
+
+def toRight(x,y,PieceType=PIECE_RED):
+    direction = 1
+    if PieceType == PIECE_BLACK:
+        direction = -1
+    return [(x-direction),y]
+
+def toFront(x,y,PieceType=PIECE_RED):
+    direction = 1
+    if PieceType == PIECE_BLACK:
+        direction = -1
+    return [x,y+direction ]
+
+def toBack(x,y,PieceType=PIECE_RED):
+    direction = -1
+    if PieceType == PIECE_BLACK:
+        direction = 1
+    return [x,y+direction ]
+
 # possible moves
+#TODO: Break down into smaller functions
 def possible_moves(b, x, y):
-    if is_capture_move_r1_valid(b, x, y, x-1, y-1, x-2, y-2) == 'valid capturing move':
+    if is_capture_move_r1_valid(
+        b, x, y, x-1, y-1, x-2, y-2) == 'valid capturing move':
         print(x-2, y-2)
-    if is_capture_move_r2_valid(b, x, y, x-1, y+1, x-2, y+2) == 'valid capturing move':
+    if is_capture_move_r2_valid(
+        b, x, y, x-1, y+1, x-2, y+2) == 'valid capturing move':
         print(x-2, y+2)
-    if is_capture_move_b1_valid(b, x, y, x+1, y+1, x+2, y+2) == 'valid capturing move':
+    if is_capture_move_b1_valid(
+        b, x, y, x+1, y+1, x+2, y+2) == 'valid capturing move':
         print(x+2, y+2)
-    if is_capture_move_b2_valid (b, x, y, x+1, y-1, x+2, y-2) == 'valid capturing move':
+    if is_capture_move_b2_valid (
+        b, x, y, x+1, y-1, x+2, y-2) == 'valid capturing move':
         print(x+2, y-2)
     if is_valid_move(b, x, y, x-1, y-1) == 'valid move':
         print(x-1, y-1)
@@ -79,22 +114,30 @@ def is_valid_move(b, x, y, x2, y2):
     else:
         return 'invalid move'
 
+legalmoves =[]
+
 #Test legal moves
 import unittest
 class Testlegalmoves(unittest.TestCase):
     def test_is_valid_move(self):
-        self.assertEqual(legalmoves.is_valid_move(b, 2, 3, 3, 4), 'valid move')
-        self.assertEqual(legalmoves.is_valid_move(b, 5, 2, 4, 1), 'valid move')
-        self.assertEqual(legalmoves.is_valid_move(b, 6, 1, 5, 0), 'invalid move')
-        self.assertEqual(legalmoves.is_valid_move(b, 5, 2, 4, 2), 'invalid move')
-        self.assertEqual(legalmoves.is_valid_move(b, 6, 7, 5, 8), 'invalid move')
+        self.assertEqual(legalmoves.is_valid_move(
+            GlobalBoard, 2, 3, 3, 4), 'valid move')
+        self.assertEqual(legalmoves.is_valid_move(
+            GlobalBoard, 5, 2, 4, 1), 'valid move')
+        self.assertEqual(legalmoves.is_valid_move(
+            GlobalBoard, 6, 1, 5, 0), 'invalid move')
+        self.assertEqual(legalmoves.is_valid_move(
+            GlobalBoard, 5, 2, 4, 2), 'invalid move')
+        self.assertEqual(legalmoves.is_valid_move(
+            GlobalBoard, 6, 7, 5, 8), 'invalid move')
 
 
 #if __name__ == '__main__':
     unittest.main()
 
 # Move a piece with error handling and throwing
-def move_piece(b, x, y, x2, y2):  # it couldnt catche when i put 6 variables instead of 5 ???
+# it couldnt catche when i put 6 variables instead of 5 ???
+def move_piece(b, x, y, x2, y2):
     try:
         b[x][y], b[x2][y2] = b[x2][y2], b[x][y]
 
@@ -108,11 +151,21 @@ def move_piece(b, x, y, x2, y2):  # it couldnt catche when i put 6 variables ins
         return e
 
 
+def isR(b, x,y):
+    return b[x][y] == 'R'
+
 # verifies capturing move
 def is_capture_move_r1_valid(b, x1, y1, x3, y3, x2, y2):
-    if 0 <= x1 <= 7 and 0 <= x2 <= 7 and 0 <= x3 <= 7 and 0 <= y1 <= 7 and 0 <= y2 <= 7 and 0 <= y3 <= 7:
-        if b[x1][y1] == 'R':  # if it is R's turn
-            if b[x2][y2] == b[x1 - 2][y1 - 2] == 'E' and b[x3][y3] == b[x1 - 1][y1 - 1] == 'B':  # if destspace is free
+    if 0 <= x1 <= 7 and \
+    0 <= x2 <= 7 and 0 <= x3 <= 7 and \
+    0 <= y1 <= 7 and 0 <= y2 <= 7 and \
+    0 <= y3 <= 7:
+#           isR(x1,y1)
+        #if b[x1][y1] == 'R':  # if it is R's turn
+        if isR(b,x1,y1):  # if it is R's turn
+            if b[x2][y2] == b[x1 - 2][y1 - 2] == 'E' \
+               and b[x3][y3] == b[x1 - 1][y1 - 1] \
+               == 'B':  # if destspace is free
                 return 'valid capturing move'
             else:
                 return 'invalid capturing move'
@@ -121,9 +174,13 @@ def is_capture_move_r1_valid(b, x1, y1, x3, y3, x2, y2):
 
 
 def is_capture_move_r2_valid(b, x1, y1, x3, y3, x2, y2):
-    if 0 <= x1 >= 7 and 0 <= x2 >= 7 and o <= x3 >= 7 and 0 <= y1 >= 7 and 0 <= y2 >= 7 and 0 <= y3 >= 7:
+    if 0 <= x1 >= 7 and 0 <= x2 >= 7 \
+       and 0 <= x3 >= 7 and 0 <= y1 >= 7 \
+       and 0 <= y2 >= 7 and 0 <= y3 >= 7:
         if b[x1][y1] == 'R':  # if it is R's turn
-            if b[x2][y2] == b[x1 - 2][y1 + 2] == 'E' and b[x3][y3] == b[x1 - 1][y1 + 1] == 'B':  # if dest space is free
+            if b[x2][y2] == b[x1 - 2][y1 + 2] == 'E'\
+               and b[x3][y3] == b[x1 - 1][y1 + 1] == 'B':
+#               if dest space is free
                 return 'valid capturing move'
             else:
                 return 'invalid capturing move'
@@ -132,9 +189,14 @@ def is_capture_move_r2_valid(b, x1, y1, x3, y3, x2, y2):
 
 
 def is_capture_move_b1_valid(b, x1, y1, x3, y3, x2, y2):
-    if 0 <= x1 >= 7 and 0 <= x2 >= 7 and o <= x3 >= 7 and 0 <= y1 >= 7 and 0 <= y2 >= 7 and 0 <= y3 >= 7:
-        if b[x1][y1] == 'B':  # if it is B's turn
-            if b[x2][y2] == b[x1 + 2][y1 + 2] == 'E' and b[x3][y3] == b[x1 + 1][y1 + 1] == 'R':  # if dest.space is free
+    if 0 <= x1 >= 7 and 0 <= x2 >= 7 and \
+       0 <= x3 >= 7 and 0 <= y1 >= 7 and \
+       0 <= y2 >= 7 and 0 <= y3 >= 7:
+# if it is B's turn
+        if b[x1][y1] == 'B':
+            if b[x2][y2] == b[x1 + 2][y1 + 2] == 'E' \
+               and b[x3][y3] == b[x1 + 1][y1 + 1] == 'R':
+# if dest.space is free
                 return 'valid capturing move'
             else:
                 return 'invalid capturing move'
@@ -144,9 +206,13 @@ def is_capture_move_b1_valid(b, x1, y1, x3, y3, x2, y2):
 
 
 def is_capture_move_b2_valid(b, x1, y1, x3, y3, x2, y2):
-    if 0 <= x1 >= 7 and 0 <= x2 >= 7 and o <= x3 >= 7 and 0 <= y1 >= 7 and 0 <= y2 >= 7 and 0 <= y3 >= 7:
+    if 0 <= x1 >= 7 and 0 <= x2 >= 7 and \
+       0 <= x3 >= 7 and 0 <= y1 >= 7 and \
+       0 <= y2 >= 7 and 0 <= y3 >= 7:
         if b[x1][y1] == 'B':  # if it is B's turn
-            if b[x2][y2] == b[x1 + 2][y1 - 2] == 'E' and b[x3][y3] == b[x1 + 1][y1 - 1] == 'R':  # if dest. space free
+            if b[x2][y2] == b[x1 + 2][y1 - 2] == 'E' \
+               and b[x3][y3] == b[x1 + 1][y1 - 1] == 'R':
+# if dest. space free
                 return 'valid capturing move'
             else:
                 return 'invalid capturing move'
