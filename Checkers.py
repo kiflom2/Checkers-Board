@@ -118,6 +118,24 @@ def possible_moves(b, x, y):
     if isEmpty(b,backLeft):
         moves.append(backLeft)
 
+    jumpFrontRight = toRight(b,toFront(b,[x,y],pieceType,2),pieceType,2)
+    if isEmpty(b,jumpFrontRight):
+        moves.append(frontRight)
+
+    jumpFrontLeft= toLeft(b,toFront(b,[x,y],pieceType,2),pieceType,2)
+    if isEmpty(b,jumpFrontLeft):
+        moves.append(frontLeft)
+
+    jumpBackRight= toRight(b,toBack(b,[x,y],pieceType,2),pieceType,2)
+    if isEmpty(b,jumpBackRight):
+        moves.append(jumpBackRight)
+
+    jumpBackLeft = toLeft(b,toBack(b,[x,y],pieceType,2),pieceType,2)
+    if isEmpty(b,jumpBackLeft):
+        moves.append(jumpBackLeft)
+
+    return moves
+
 #TODO: finish the jumps there should be four jumps
 
 # possible moves
