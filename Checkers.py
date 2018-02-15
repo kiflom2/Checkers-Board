@@ -36,7 +36,7 @@ def pretty_print(b):
                 counter += 1
             #print(str(cell), end=' ')
 
-def isValid(b, cord):
+def isValid(cord):
     return cord[0]>=0 and cord[0] <8 and cord[1] >=0 and cord[1]<8
 
 def isEmpty(b,cord):
@@ -118,7 +118,7 @@ def possible_moves(b, x, y):
 
     result = []
     for m in moves:
-        if isValid(b,m) and isEmpty(b,m):
+        if isValid(m) and isEmpty(b,m):
             result.append(m)
 
 
