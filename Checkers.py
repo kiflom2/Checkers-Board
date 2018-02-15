@@ -36,32 +36,60 @@ def pretty_print(b):
                 counter += 1
             #print(str(cell), end=' ')
 
+def isEmpty(b,x,y):
+    return b[x][y] == PIECE_EMPTY
+
+
+def isBlack(b,x,y):
+    return b[x][y] == PIECE_BLACK
+
+def isRed(b,x,y):
+    return b[x][y] == PIECE_RED
 
 #def toLeft(x,y,PieceType="B",times=1):
     #return [(x-(direction*times)),(y-(times *direction))]
-def toLeft(x,y,PieceType=PIECE_RED):
+def toLeft(x,y,PieceType=PIECE_RED,times = 1):
     direction = -1
     if PieceType == PIECE_BLACK:
-        direction = 1
+        direction *= -1*times
     return [(x-direction),y]
 
-def toRight(x,y,PieceType=PIECE_RED):
+def toRight(x,y,PieceType=PIECE_RED,times = 1):
     direction = 1
     if PieceType == PIECE_BLACK:
-        direction = -1
+        direction *= -1*times
     return [(x-direction),y]
 
-def toFront(x,y,PieceType=PIECE_RED):
+def toFront(x,y,PieceType=PIECE_RED,times = 1):
     direction = 1
     if PieceType == PIECE_BLACK:
-        direction = -1
+        direction *= -1*times
     return [x,y+direction ]
 
-def toBack(x,y,PieceType=PIECE_RED):
+def toBack(x,y,PieceType=PIECE_RED,times = 1):
     direction = -1
     if PieceType == PIECE_BLACK:
-        direction = 1
+        direction *= -1*times
     return [x,y+direction ]
+
+def jumpRight(x,y,PieceType=PIECE_RED,Forward= True):
+    if Forward:
+        vert = toFront(x,y,PieceType,2)
+        horiz = toRight(vert[0],vert[1],PieceType,2)
+    elif not Forward:
+        vert = toBack(x,y,PieceType,2)
+        horiz = toRight(vert[0],vert[1],PieceType,2)
+    return horiz
+
+def jumpLeft(x,y,PieceType=PIECE_RED,Forward= True):
+    if Forward:
+        vert = toFront(x,y,PieceType,2)
+        horiz = toLeft(vert[0],vert[1],PieceType,2)
+    elif not Forward:
+        vert = toBack(x,y,PieceType,2)
+        horiz = toLeft(vert[0],vert[1],PieceType,2)
+    return horiz
+
 
 # possible moves
 #TODO: Break down into smaller functions
@@ -161,8 +189,7 @@ def is_capture_move_r1_valid(b, x1, y1, x3, y3, x2, y2):
     0 <= y1 <= 7 and 0 <= y2 <= 7 and \
     0 <= y3 <= 7:
 #           isR(x1,y1)
-        #if b[x1][y1] == 'R':  # if it is R's turn
-        if isR(b,x1,y1):  # if it is R's turn
+        if b[x1][y1] == 'R':  # if it is R's turn
             if b[x2][y2] == b[x1 - 2][y1 - 2] == 'E' \
                and b[x3][y3] == b[x1 - 1][y1 - 1] \
                == 'B':  # if destspace is free
