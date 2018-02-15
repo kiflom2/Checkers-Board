@@ -36,6 +36,9 @@ def pretty_print(b):
                 counter += 1
             #print(str(cell), end=' ')
 
+def isValid(b, cord):
+    return cord[0]>=0 and cord[0] <8 and cord[1] >=0 and cord[1]<8
+
 def isEmpty(b,cord):
     return b[cord[0]][cord[1]] == PIECE_EMPTY
 
@@ -115,7 +118,7 @@ def possible_moves(b, x, y):
 
     result = []
     for m in moves:
-        if isEmpty(b,m):
+        if isValid(b,m) and isEmpty(b,m):
             result.append(m)
 
 
