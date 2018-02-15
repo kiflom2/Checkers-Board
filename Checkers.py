@@ -25,9 +25,12 @@ GlobalBoard = [['E', 'B','E','B','E','B','E','B'],
 GlobalBoard= GlobalBoard[::-1]
 
 #TODO: generate empty board
+#TODO: convert all to tupple
 
 def transpose(cord):
-    return [cord[1],cord[0]]
+    # return [cord[1],cord[0]]
+    return (cord[1],cord[0])
+
 def pretty_print(brd):
     counter = 0
     for row in brd:
@@ -40,6 +43,7 @@ def pretty_print(brd):
             else:
                 counter += 1
             #print(str(cell), end=' ')
+
 #TODO: fix for normal coordinate system
 def pretty_print3(b):
     counter = 0
@@ -84,30 +88,26 @@ def toLeft(cord,PieceType=PIECE_RED,times = 1):
     direction = -1
     if PieceType == PIECE_BLACK:
         direction *= -1*times
-    cord[0] -= direction
-    return cord
+    return (cord[0]+direction,cord[1])
 #toRight(toLeft(x,y))
 
 def toRight(cord,PieceType=PIECE_RED,times = 1):
     direction = 1
     if PieceType == PIECE_BLACK:
         direction *= -1*times
-    cord[0] -=direction
-    return cord
+    return (cord[0]+direction,cord[1])
 
 def toFront(cord,PieceType=PIECE_RED,times = 1):
     direction = 1
     if PieceType == PIECE_BLACK:
         direction *= -1*times
-    cord[1] -=direction
-    return cord
+    return (cord[0],cord[1]+direction)
 
 def toBack(cord,PieceType=PIECE_RED,times = 1):
-    direction = 1
+    direction = -1
     if PieceType == PIECE_BLACK:
         direction *= -1*times
-    cord[1]+=direction
-    return cord
+    return (cord[0],cord[1]+direction)
 
 def jumpRight(cord,PieceType=PIECE_RED,Forward= True):
     if Forward:
@@ -125,20 +125,19 @@ def jumpLeft(x,y,PieceType=PIECE_RED,Forward= True):
 #TODO: right a test for this function
 def possible_moves(b, cord):
     moves = []
-    x,y = cord[0],cord[1]
-    pieceType = getType(b,[x,y])
-    if isEmpty(b,[x,y]):
+    pieceType = getType(b,cord)
+    if isEmpty(b,cord):
         return []
     #try right
-    moves.append(toRight(toFront([x,y],pieceType),pieceType))
-    moves.append(toLeft(toFront([x,y],pieceType),pieceType))
-    moves.append(toRight(toBack([x,y],pieceType),pieceType))
-    moves.append(toLeft(toBack([x,y],pieceType),pieceType))
+    moves.append(toRight(toFront(cord,pieceType),pieceType))
+    moves.append(toLeft(toFront(cord,pieceType),pieceType))
+    moves.append(toRight(toBack(cord,pieceType),pieceType))
+    moves.append(toLeft(toBack(cord,pieceType),pieceType))
     #TODO: below part isn't working using *times for multiple jump moves
-    moves.append(toRight(toFront([x,y],pieceType,2),pieceType,2))
-    moves.append(toLeft(toFront([x,y],pieceType,2),pieceType,2))
-    moves.append(toRight(toBack([x,y],pieceType,2),pieceType,2))
-    moves.append(toLeft(toBack([x,y],pieceType,2),pieceType,2))
+    moves.append(toRight(toFront(cord,pieceType,2),pieceType,2))
+    moves.append(toLeft(toFront(cord,pieceType,2),pieceType,2))
+    moves.append(toRight(toBack(cord,pieceType,2),pieceType,2))
+    moves.append(toLeft(toBack(cord,pieceType,2),pieceType,2))
     result = []
     for m in moves:
         if isValid(m) and isEmpty(b,m):
