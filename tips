@@ -8,3 +8,13 @@ ide - integrated development environment
 
 I use vim
 https://github.com/vim/vim
+
+
+------------------------
+
+cd C:\Users\kiflom\Checkers-Board
+
+git pull
+git push
+
+
