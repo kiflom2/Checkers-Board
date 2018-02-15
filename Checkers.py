@@ -36,15 +36,24 @@ def pretty_print(b):
                 counter += 1
             #print(str(cell), end=' ')
 
-def isEmpty(b,x,y):
-    return b[x][y] == PIECE_EMPTY
+def isEmpty(b,cord):
+    return b[cord[0]][cord[1]] == PIECE_EMPTY
 
+def getType(b,cord):
+    if isRed(b,cord):
+        return PIECE_RED
+    elif isEmpty(b,cord):
+        return PIECE_EMPTY
+    elif isBlack(b,cord):
+        return PIECE_BLACK
+    else:
+        print "What the hell how did you get here"
 
-def isBlack(b,x,y):
-    return b[x][y] == PIECE_BLACK
+def isBlack(b,cord):
+    return b[cord[0]][cord[1]] == PIECE_BLACK
 
-def isRed(b,x,y):
-    return b[x][y] == PIECE_RED
+def isRed(b,cord):
+    return b[cord[0]][cord[1]] == PIECE_RED
 
 #def toLeft(x,y,PieceType="B",times=1):
     #return [(x-(direction*times)),(y-(times *direction))]
@@ -52,27 +61,30 @@ def toLeft(cord,PieceType=PIECE_RED,times = 1):
     direction = -1
     if PieceType == PIECE_BLACK:
         direction *= -1*times
-    return [(cord[0]-direction),cord[1]]
-
-toRight(toLeft(x,y))
+    cord[0]= cord[0]-direction
+    return cord
+#toRight(toLeft(x,y))
 
 def toRight(cord,PieceType=PIECE_RED,times = 1):
     direction = 1
     if PieceType == PIECE_BLACK:
         direction *= -1*times
-    return [(cord[0]-direction),cord[1]]
+    cord[0] -=direction
+    return cord
 
 def toFront(cord,PieceType=PIECE_RED,times = 1):
     direction = 1
     if PieceType == PIECE_BLACK:
         direction *= -1*times
-    return [cord[1],cord[1]+direction ]
+    cord[1]+=direction
+    return cord
 
 def toBack(cord,PieceType=PIECE_RED,times = 1):
     direction = -1
     if PieceType == PIECE_BLACK:
         direction *= -1*times
-    return [cord[0],cord[1]+direction ]
+    cord[1]+=direction
+    return cord
 
 def jumpRight(cord,PieceType=PIECE_RED,Forward= True):
     if Forward:
@@ -86,6 +98,27 @@ def jumpLeft(x,y,PieceType=PIECE_RED,Forward= True):
     else:
         return toLeft(toBack(x,y,PieceType,2),PieceType,2)
 
+def possible_moves(b, x, y):
+    moves = []
+    pieceType = getType(b,[x,y])
+    if isEmpty(b,[x,y]):
+        return []
+    #try right
+    frontRight = toRight(b,toFront(b,[x,y],pieceType),pieceType)
+    if isEmpty(b,frontRight):
+        moves.append(frontRight)
+    frontLeft= toLeft(b,toFront(b,[x,y],pieceType),pieceType)
+    if isEmpty(b,frontRight):
+        moves.append(frontLeft)
+
+    backRight = toRight(b,toBack(b,[x,y],pieceType),pieceType)
+    if isEmpty(b,backRight):
+        moves.append(backRight)
+    backLeft= toLeft(b,toBack(b,[x,y],pieceType),pieceType)
+    if isEmpty(b,backLeft):
+        moves.append(backLeft)
+
+#TODO: finish the jumps there should be four jumps
 
 # possible moves
 #TODO: Break down into smaller functions
