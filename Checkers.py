@@ -5,24 +5,29 @@
 ###################FUNCTIONS###############
 
 #Generate board
-b = [['E', 'B','E','B','E','B','E','B'],
-     ['B','E','B','E','B','E','B','E'],
-     ['E','B','E','B','E','B','E','B'],
-     ['E','E','E','E','E','E','E','E'],
-     ['E','E','E','E','E','E','E','E'],
-     ['R','E','R','E','R','E','R','E'],
-     ['E','R','E','R','E','R','E','R'],
-     ['R','E','R','E','R','E','R','E']]
+GlobalBoard = [['E', 'B','E','B','E','B','E','B'],
+                ['B','E','B','E','B','E','B','E'],
+                ['E','B','E','B','E','B','E','B'],
+                ['E','E','E','E','E','E','E','E'],
+                ['E','E','E','E','E','E','E','E'],
+                ['R','E','R','E','R','E','R','E'],
+                ['E','R','E','R','E','R','E','R'],
+                ['R','E','R','E','R','E','R','E']]
+
+#TODO: generate empty board
+
 
 def pretty_print(b):
     counter = 0
     for row in b:
         for cell in row:
             #print(counter,end=' ')
-            print(cell, end='  ')
+            #print(cell, end='  ')
+            print(cell, '  ')
             if (counter == 7):
                 counter = 0
-                print('\n',end='' '')
+                #print('\n',end='' '')
+                print('\n','')
             else:
                 counter += 1
             #print(str(cell), end=' ')
