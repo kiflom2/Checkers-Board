@@ -104,43 +104,28 @@ def possible_moves(b, x, y):
     if isEmpty(b,[x,y]):
         return []
     #try right
-    frontRight = toRight(b,toFront(b,[x,y],pieceType),pieceType)
-    if isEmpty(b,frontRight):
-        moves.append(frontRight)
-    frontLeft= toLeft(b,toFront(b,[x,y],pieceType),pieceType)
-    if isEmpty(b,frontRight):
-        moves.append(frontLeft)
+    moves.append(toRight(b,toFront(b,[x,y],pieceType),pieceType))
+    moves.append(toLeft(b,toFront(b,[x,y],pieceType),pieceType))
+    moves.append(toRight(b,toBack(b,[x,y],pieceType),pieceType))
+    moves.append(toLeft(b,toBack(b,[x,y],pieceType),pieceType))
+    moves.append(toRight(b,toFront(b,[x,y],pieceType,2),pieceType,2))
+    moves.append(toLeft(b,toFront(b,[x,y],pieceType,2),pieceType,2))
+    moves.append(toRight(b,toBack(b,[x,y],pieceType,2),pieceType,2))
+    moves.append(toLeft(b,toBack(b,[x,y],pieceType,2),pieceType,2))
 
-    backRight = toRight(b,toBack(b,[x,y],pieceType),pieceType)
-    if isEmpty(b,backRight):
-        moves.append(backRight)
-    backLeft= toLeft(b,toBack(b,[x,y],pieceType),pieceType)
-    if isEmpty(b,backLeft):
-        moves.append(backLeft)
+    result = []
+    for m in moves:
+        if isEmpty(b,m):
+            result.append(m)
 
-    jumpFrontRight = toRight(b,toFront(b,[x,y],pieceType,2),pieceType,2)
-    if isEmpty(b,jumpFrontRight):
-        moves.append(frontRight)
 
-    jumpFrontLeft= toLeft(b,toFront(b,[x,y],pieceType,2),pieceType,2)
-    if isEmpty(b,jumpFrontLeft):
-        moves.append(frontLeft)
-
-    jumpBackRight= toRight(b,toBack(b,[x,y],pieceType,2),pieceType,2)
-    if isEmpty(b,jumpBackRight):
-        moves.append(jumpBackRight)
-
-    jumpBackLeft = toLeft(b,toBack(b,[x,y],pieceType,2),pieceType,2)
-    if isEmpty(b,jumpBackLeft):
-        moves.append(jumpBackLeft)
-
-    return moves
+    return result
 
 #TODO: finish the jumps there should be four jumps
 
 # possible moves
 #TODO: Break down into smaller functions
-def possible_moves(b, x, y):
+def possible_moves_prev(b, x, y):
     if is_capture_move_r1_valid(
         b, x, y, x-1, y-1, x-2, y-2) == 'valid capturing move':
         print(x-2, y-2)
