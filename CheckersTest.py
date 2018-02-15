@@ -18,6 +18,9 @@ class Testlegalmoves(unittest.TestCase):
         result = Checkers.toFront(cell, pieceType)
         self.assertEqual(result[0], 2)
         self.assertEqual(result[1], 3)
+        result = Checkers.toFront(cell, pieceType,2)
+        self.assertEqual(result[0], 2)
+        self.assertEqual(result[1], 4)
         self.assertEqual(cell[0],2)
         self.assertEqual(cell[1],2)
 
@@ -28,6 +31,9 @@ class Testlegalmoves(unittest.TestCase):
         result = Checkers.toBack(cell,pieceType)
         self.assertEqual(result[0],2)
         self.assertEqual(result[1],1)
+        result = Checkers.toBack(cell, pieceType,2)
+        self.assertEqual(result[0], 2)
+        self.assertEqual(result[1], 0)
         self.assertEqual(cell[0],2)
         self.assertEqual(cell[1],2)
 
@@ -37,6 +43,11 @@ class Testlegalmoves(unittest.TestCase):
         result = Checkers.toRight(cell,pieceType)
         self.assertEqual(result[0],3)
         self.assertEqual(result[1],2)
+        result = Checkers.toRight(cell,pieceType,2)
+        self.assertEqual(result[0],4)
+        self.assertEqual(result[1],2)
+        self.assertEqual(cell[0],2)
+        self.assertEqual(cell[1],2)
 
     def test_ToLeft(self):
         self.assertEqual(cell[0],2)
@@ -44,24 +55,27 @@ class Testlegalmoves(unittest.TestCase):
         result = Checkers.toLeft(cell,pieceType)
         self.assertEqual(result[0],1)
         self.assertEqual(result[1],2)
-    # def test_is_valid_move(self):
-    # self.assertEqual(1,2)
-    # self.assertEqual(legalmoves.is_valid_move(
-    #     Checkers.GlobalBoard, 2, 3, 3, 4), 'valid move')
-    # self.assertEqual(legalmoves.is_valid_move(
-    #     Checkers.GlobalBoard, 5, 2, 4, 1), 'valid move')
-    # self.assertEqual(legalmoves.is_valid_move(
-    #     Checkers.GlobalBoard, 6, 1, 5, 0), 'invalid move')
-    # self.assertEqual(legalmoves.is_valid_move(
-    #     Checkers.GlobalBoard, 5, 2, 4, 2), 'invalid move')
-    # self.assertEqual(legalmoves.is_valid_move(
-    #     Checkers.GlobalBoard, 6, 7, 5, 8), 'invalid move')
+        result = Checkers.toLeft(cell,pieceType,2)
+        self.assertEqual(result[0],0)
+        self.assertEqual(result[1],2)
 
+# print("left:",Checkers.toLeft(cell))
+# print("right:",Checkers.toRight(cell))
+# print("front:",Checkers.toFront(cell))
+# print("back:",Checkers.toBack(cell))
+#
+# print("leftback",Checkers.toLeft(Checkers.toBack(cell,pieceType),pieceType))
+# print("leftback x 2",Checkers.toLeft(Checkers.toBack(cell,pieceType,2),pieceType,2))
+# print("rightback",Checkers.toRight(Checkers.toBack(cell,pieceType),pieceType))
+# print("rightback x 2",Checkers.toRight(Checkers.toBack(cell,pieceType,2),pieceType,2))
+# print("rightfront",Checkers.toRight(Checkers.toFront(cell,pieceType),pieceType))
+# print("rightfront x 2",Checkers.toRight(Checkers.toFront(cell,pieceType,2),pieceType,2))
+# print("leftfront",Checkers.toLeft(Checkers.toFront(cell,pieceType),pieceType))
+# print("leftfront x 2",Checkers.toLeft(Checkers.toFront(cell,pieceType,2),pieceType,2))
 
 if __name__ == '__main__':
     unittest.main()
 
-# print(possible_moves(GlobalBoard,[5,2]))
 # print(possible_moves(GlobalBoard,[2,1]))
 # pieceType = PIECE_BLACK
 cell = [2, 2]

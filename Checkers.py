@@ -85,26 +85,26 @@ def isRed(b,cord):
 #def toLeft(x,y,PieceType="B",times=1):
     #return [(x-(direction*times)),(y-(times *direction))]
 def toLeft(cord,PieceType=PIECE_RED,times = 1):
-    direction = -1
+    direction = -1*times
     if PieceType == PIECE_BLACK:
         direction *= -1*times
     return (cord[0]+direction,cord[1])
 #toRight(toLeft(x,y))
 
 def toRight(cord,PieceType=PIECE_RED,times = 1):
-    direction = 1
+    direction = 1*times
     if PieceType == PIECE_BLACK:
         direction *= -1*times
     return (cord[0]+direction,cord[1])
 
 def toFront(cord,PieceType=PIECE_RED,times = 1):
-    direction = 1
+    direction = 1*times
     if PieceType == PIECE_BLACK:
         direction *= -1*times
     return (cord[0],cord[1]+direction)
 
 def toBack(cord,PieceType=PIECE_RED,times = 1):
-    direction = -1
+    direction = -1*times
     if PieceType == PIECE_BLACK:
         direction *= -1*times
     return (cord[0],cord[1]+direction)
