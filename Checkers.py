@@ -48,47 +48,43 @@ def isRed(b,x,y):
 
 #def toLeft(x,y,PieceType="B",times=1):
     #return [(x-(direction*times)),(y-(times *direction))]
-def toLeft(x,y,PieceType=PIECE_RED,times = 1):
+def toLeft(cord,PieceType=PIECE_RED,times = 1):
     direction = -1
     if PieceType == PIECE_BLACK:
         direction *= -1*times
-    return [(x-direction),y]
+    return [(cord[0]-direction),cord[1]]
 
-def toRight(x,y,PieceType=PIECE_RED,times = 1):
+toRight(toLeft(x,y))
+
+def toRight(cord,PieceType=PIECE_RED,times = 1):
     direction = 1
     if PieceType == PIECE_BLACK:
         direction *= -1*times
-    return [(x-direction),y]
+    return [(cord[0]-direction),cord[1]]
 
-def toFront(x,y,PieceType=PIECE_RED,times = 1):
+def toFront(cord,PieceType=PIECE_RED,times = 1):
     direction = 1
     if PieceType == PIECE_BLACK:
         direction *= -1*times
-    return [x,y+direction ]
+    return [cord[1],cord[1]+direction ]
 
-def toBack(x,y,PieceType=PIECE_RED,times = 1):
+def toBack(cord,PieceType=PIECE_RED,times = 1):
     direction = -1
     if PieceType == PIECE_BLACK:
         direction *= -1*times
-    return [x,y+direction ]
+    return [cord[0],cord[1]+direction ]
 
-def jumpRight(x,y,PieceType=PIECE_RED,Forward= True):
+def jumpRight(cord,PieceType=PIECE_RED,Forward= True):
     if Forward:
-        vert = toFront(x,y,PieceType,2)
-        horiz = toRight(vert[0],vert[1],PieceType,2)
-    elif not Forward:
-        vert = toBack(x,y,PieceType,2)
-        horiz = toRight(vert[0],vert[1],PieceType,2)
-    return horiz
+        return toRight(toFront(cord,PieceType,2),PieceType,2)
+    else:
+        return toRight(toBack(cord,PieceType,2),PieceType,2)
 
 def jumpLeft(x,y,PieceType=PIECE_RED,Forward= True):
     if Forward:
-        vert = toFront(x,y,PieceType,2)
-        horiz = toLeft(vert[0],vert[1],PieceType,2)
-    elif not Forward:
-        vert = toBack(x,y,PieceType,2)
-        horiz = toLeft(vert[0],vert[1],PieceType,2)
-    return horiz
+        return  toLeft(toFront(x,y,PieceType,2),PieceType,2)
+    else:
+        return toLeft(toBack(x,y,PieceType,2),PieceType,2)
 
 
 # possible moves
