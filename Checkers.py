@@ -87,7 +87,7 @@ def isRed(b,cord):
 def toLeft(cord,PieceType=PIECE_RED,times = 1):
     direction = -1*times
     if PieceType == PIECE_BLACK:
-        direction *= -1*times
+        direction *= 1*times
     return (cord[0]+direction,cord[1])
 #toRight(toLeft(x,y))
 
