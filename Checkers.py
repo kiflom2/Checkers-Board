@@ -61,14 +61,14 @@ def pretty_print3(b):
             print(str(cell), end=' ')
 
 def isValid(cord):
-    return cord[0]>=0 and cord[0] <8 and cord[1] >=0 and cord[1]<8
+    return cord[0]>=0 and cord[0] <8 and cord[1] >=0 and cord[1]<8   #k what is this going to retun ?
 
 def isEmpty(b,cord):
-    return b[cord[0]][cord[1]] == PIECE_EMPTY
+    return b[cord[0]][cord[1]] == PIECE_EMPTY     #k is this going to return PIECE_EMPTY  for every isEmpty(b, cord)?
 
 def getType(b,cord):
-    if isRed(b,cord):
-        return PIECE_RED
+    if isRed(b,cord):   #k do we need to add this?,  if isRed(b, cord) == PIECE_RED
+        return PIECE_RED                        # return PIECE_RED
     elif isEmpty(b,cord):
         return PIECE_EMPTY
     elif isBlack(b,cord):
@@ -77,19 +77,32 @@ def getType(b,cord):
         print("What the hell how did you get here")
 
 def isBlack(b,cord):
-    return b[cord[0]][cord[1]] == PIECE_BLACK
+    return b[cord[0]][cord[1]] == PIECE_BLACK   
+
+#k isnt this should be like: 
+#k def isBlack(b,cord):       
+#k     if b[cord[0]][cord[1]] == PIECE_BLACK
+#k     return PIECE_BLACK 
+
 
 def isRed(b,cord):
     return b[cord[0]][cord[1]] == PIECE_RED
+
+#k isnt this should be like
+#k def isRed(b,cord):       
+#k     if b[cord[0]][cord[1]] == PIECE_RED
+#k     return PIECE_RED 
 
 #def toLeft(x,y,PieceType="B",times=1):
     #return [(x-(direction*times)),(y-(times *direction))]
 def toLeft(cord,PieceType=PIECE_RED,times = 1):
     direction = -1*times
     if PieceType == PIECE_BLACK:
-        direction *= 1*times
+        direction *= -1*times
     return (cord[0]+direction,cord[1])
 #toRight(toLeft(x,y))
+#K why we do need times?, cant we use 1 on the function?
+
 
 def toRight(cord,PieceType=PIECE_RED,times = 1):
     direction = 1*times
@@ -100,16 +113,16 @@ def toRight(cord,PieceType=PIECE_RED,times = 1):
 def toFront(cord,PieceType=PIECE_RED,times = 1):
     direction = 1*times
     if PieceType == PIECE_BLACK:
-        direction *= -1*times
+        direction *= -1*times   # can we say, direction = -1 or direction = -1*times
     return (cord[0],cord[1]+direction)
 
 def toBack(cord,PieceType=PIECE_RED,times = 1):
     direction = -1*times
     if PieceType == PIECE_BLACK:
-        direction *= -1*times
+        direction *= -1*times #K can we say, direction = 1 or direcetion = 1*times
     return (cord[0],cord[1]+direction)
 
-def jumpRight(cord,PieceType=PIECE_RED,Forward= True):
+def jumpRight(cord,PieceType=PIECE_RED,Forward= True):  # do we need to define Forward?
     if Forward:
         return toRight(toFront(cord,PieceType,2),PieceType,2)
     else:
@@ -120,6 +133,20 @@ def jumpLeft(x,y,PieceType=PIECE_RED,Forward= True):
         return  toLeft(toFront(x,y,PieceType,2),PieceType,2)
     else:
         return toLeft(toBack(x,y,PieceType,2),PieceType,2)
+
+def jumpRightBlack(cord, pieceType=PIECE_BLACK, Forward= True):
+    if Forward:
+        return toRight(toFront(cord,PieceType,2),PieceType,2)
+    else:
+        return toRight(toback(cord,PieceType,2),pieceType,2)
+
+def jumpLeftBlack(cord, pieceType=PIECE_black, Forward= True):
+    if Forward:
+        return toLeft(toFront(cord,PieceType,2),PieceType,2)
+    else:
+        return toLeft(toback(cord,PieceType,2),pieceType,2)
+
+
 
 #TODO: verify this works and fix
 #TODO: right a test for this function
