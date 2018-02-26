@@ -7,22 +7,50 @@ legalmoves = []
 
 
 cell = (2, 2)
+cell2 = (3,5)
 pieceType = Checkers.PIECE_RED
 
 class Testlegalmoves(unittest.TestCase):
 
     def test_ToFront(self):
+        # Checking if cell has changed
         self.assertEqual(cell[0],2)
         self.assertEqual(cell[1],2)
-        # result = toRight(toFront(cell,pieceType),pieceType)
+
+        self.assertEqual(cell2[0],3)
+        self.assertEqual(cell2[1],5)
+
         result = Checkers.toFront(cell, pieceType)
+        # Check result
         self.assertEqual(result[0], 2)
         self.assertEqual(result[1], 3)
+
+        result2 = Checkers.toFront(cell2, pieceType)
+        # Check result2
+        self.assertEqual(result2[0], 3)
+        self.assertEqual(result2[1], 6)
+
+
+
+        result = Checkers.toFront(cell, Checkers.PIECE_BLACK)
+        self.assertEqual(result[0], 2)
+        self.assertEqual(result[1], 1)
+
+        # Checking toFront with time = 2
         result = Checkers.toFront(cell, pieceType,2)
         self.assertEqual(result[0], 2)
         self.assertEqual(result[1], 4)
+
+        # Checking if cell has changed
         self.assertEqual(cell[0],2)
         self.assertEqual(cell[1],2)
+
+
+
+
+        # Lets test for black
+    # def test_ToBlack(self):
+    #     self.assertEqual(cell[0],)
 
 
     def test_ToBack(self):
